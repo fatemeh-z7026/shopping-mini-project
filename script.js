@@ -126,4 +126,7 @@ function removeProduct(productId) {
   selectedProductGenarator(shoppingCart);
 }
 
-
+removeAllBtn.addEventListener("click", function () {
+  shoppingCart = [];
+  selectedProductGenarator(shoppingCart);
+});
