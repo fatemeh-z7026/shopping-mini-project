@@ -11,7 +11,7 @@ let shoppingCart = [];
 let shopItemsContainer = document.querySelector(".shop-items");
 let cartItem = document.querySelector(".cart-items");
 let removeAllBtn = document.getElementById("remove-all-products");
-let totalPrice = document.querySelector(".cart-total-price");
+let cartTotalPrice = document.querySelector(".cart-total-price");
 let $ = document;
 
 allProducts.forEach(function (product) {
@@ -55,6 +55,7 @@ function addProduct(productId) {
 
   shoppingCart.push(selectedProduct);
   selectedProductGenarator(shoppingCart);
+  calTotalPrice(shoppingCart);
   console.log(shoppingCart);
 }
 
@@ -116,17 +117,30 @@ function selectedProductGenarator(userBasketArray) {
   });
 }
 
-//Remove Button
+//Remove Product
 
 function removeProduct(productId) {
   //reassign new value or update value of shopping cart
+
   shoppingCart = shoppingCart.filter(function (product) {
+    //return all item except below condition
     return product.id !== productId;
   });
   selectedProductGenarator(shoppingCart);
 }
 
+//Remove All Product
 removeAllBtn.addEventListener("click", function () {
   shoppingCart = [];
   selectedProductGenarator(shoppingCart);
+  cartTotalPrice.innerHTML = "";
 });
+
+//Calculate Total Price
+function calTotalPrice(userBasketArray) {
+  totalPriceValue = 0;
+  userBasketArray.forEach(function (product) {
+    totalPriceValue += product.price * product.count;
+  });
+  cartTotalPrice.innerHTML = totalPriceValue;
+}
