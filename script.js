@@ -10,7 +10,7 @@ let shoppingCart = [];
 
 let shopItemsContainer = document.querySelector(".shop-items");
 let cartItem = document.querySelector(".cart-items");
-let removeBtn = document.getElementById("remove-all-products");
+let removeAllBtn = document.getElementById("remove-all-products");
 let totalPrice = document.querySelector(".cart-total-price");
 let $ = document;
 
@@ -59,7 +59,7 @@ function addProduct(productId) {
 }
 
 function selectedProductGenarator(userBasketArray) {
-    cartItem.innerHTML=''
+  cartItem.innerHTML = "";
   userBasketArray.forEach(function (product) {
     let basketProductContainer = $.createElement("div");
     basketProductContainer.classList.add("cart-row");
@@ -97,6 +97,9 @@ function selectedProductGenarator(userBasketArray) {
     let basketProductRemoveBtn = $.createElement("button");
     basketProductRemoveBtn.className = "btn btn-danger";
     basketProductRemoveBtn.innerHTML = "Remove";
+    basketProductRemoveBtn.addEventListener("click", function () {
+      removeProduct(product.id);
+    });
 
     basketProductInputsContainer.append(
       basketProductInput,
@@ -112,3 +115,15 @@ function selectedProductGenarator(userBasketArray) {
     cartItem.append(basketProductContainer);
   });
 }
+
+//Remove Button
+
+function removeProduct(productId) {
+  //reassign new value or update value of shopping cart
+  shoppingCart = shoppingCart.filter(function (product) {
+    return product.id !== productId;
+  });
+  selectedProductGenarator(shoppingCart);
+}
+
+
