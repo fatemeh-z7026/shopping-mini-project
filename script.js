@@ -94,7 +94,9 @@ function selectedProductGenarator(userBasketArray) {
     basketProductInput.className = "cart-quantity-input";
     basketProductInput.value = product.count;
     basketProductInput.setAttribute("type", "number");
-
+    basketProductInput.addEventListener("change", function () {
+      updateProductCount(product.id, basketProductInput.value);
+    });
     let basketProductRemoveBtn = $.createElement("button");
     basketProductRemoveBtn.className = "btn btn-danger";
     basketProductRemoveBtn.innerHTML = "Remove";
@@ -143,4 +145,14 @@ function calTotalPrice(userBasketArray) {
     totalPriceValue += product.price * product.count;
   });
   cartTotalPrice.innerHTML = totalPriceValue;
+}
+
+//Update Product Count
+function updateProductCount(productId, newCount) {
+  shoppingCart.forEach(function (product) {
+    if (product.id === productId) {
+      product.count = newCount;
+    }
+  });
+  calTotalPrice(shoppingCart);
 }
